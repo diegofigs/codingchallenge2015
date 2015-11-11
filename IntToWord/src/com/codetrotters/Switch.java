@@ -82,17 +82,17 @@ public class Switch {
             for (int i = 0; i < buffer.length(); i++) {
                 // Current digit being processed
                 int digit = Character.getNumericValue(buffer.charAt(i));
+                if(digit == 0)
+                    continue;
                 // Position of digit in entered number
                 int position = buffer.length() - i;
 
                 // Third position
                 if (position == 3) {
-                    if (digit != 0) {
-                        // Add digit word
-                        wordQueue.add(NUMBERS[digit]);
-                        // Add hundred
-                        wordQueue.add("hundred");
-                    }
+                    // Add digit word
+                    wordQueue.add(NUMBERS[digit]);
+                    // Add hundred
+                    wordQueue.add("hundred");
                 }
 
                 // Second position
@@ -113,10 +113,8 @@ public class Switch {
                     // If this digit is not the most significant
                     if (i != 0) {
                         // Check if previous number is higher than 1
-                        if (Character.getNumericValue(buffer.charAt(i - 1)) > 1) {
-                            // Add digit word if not zero
-                            if (digit != 0)
-                                wordQueue.add(NUMBERS[digit]);
+                        if (Character.getNumericValue(buffer.charAt(i - 1)) != 1) {
+                            wordQueue.add(NUMBERS[digit]);
                         }
                     }
                     // If it is, just add the number
