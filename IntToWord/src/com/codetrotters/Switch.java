@@ -46,20 +46,32 @@ public class Switch {
             "ninety"
     };
     /**
-     * @param number integer to be converted to string
-     * @return equivalent string of number
+     * Method that takes care of switching input number
+     * from int to String format. Supported range is from
+     * [ 999,999,999 to -999,999,999 ].
+     * @param number Integer to be converted to string
+     * @return Equivalent string of number
      */
     public static String int_to_word(int number){
+        // Check for exception case of zero
+        if(number == 0)
+            return "zero";
+
         // Stack for grouping digits into groups
         Stack<String> groupStack = new Stack<String>();
         // Queue that acts as a buffer for words
         Queue<String> wordQueue = new LinkedList<String>();
-
         // Entered number in String format
         String numberString = Integer.toString(number);
-
         // String buffer used as temp storage
         String buffer = "";
+
+        // Check if negative number
+        if(number < 0) {
+            wordQueue.add("negative");
+            numberString = numberString.substring(1);
+        }
+
         // Divide number into three-digit groups
         for(int i = numberString.length()-1; i >= 0; i--) {
             Character c = numberString.charAt(i);
